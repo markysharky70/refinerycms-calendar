@@ -9,5 +9,6 @@ Refinery::Application.routes.draw do
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
     resources :events, :except => :show
     resources :event_categories, :except => :show
+    resources :event_venues, :except => :show
   end
 end
