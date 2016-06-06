@@ -1,0 +1,42 @@
+<%= content_for :javascripts  do -%>
+  <%= javascript_include_tag 'jscolor.min' if ENV['RACK_ENV'] == 'production' -%>
+  <%= raw '<script src="http://localhost:3000/javascripts/jscolor.min.js" type="text/javascript"></script>' unless ENV['RACK_ENV'] == 'production' -%>
+  <%= raw '<script>function update(jscolor) { document.getElementById("event_calendar_color").jscolor.hide(); }</script>' -%>
+<%- end -%>
+
+<%= form_for [:admin, @event_venue] do |f| -%>
+  <%= render :partial => "/shared/admin/error_messages", :locals => {
+          :object => @event_venue,
+          :include_object_name => true
+        } %>
+  
+  <div class='field'>
+    <%= f.label :venue_name -%>
+    <%= f.text_field :venue_name, :class => 'larger widest' -%>
+  </div>
+
+  <div class='field'>
+    <%= f.label :venue_address -%>
+    <%= f.text_field :venue_address, :class => 'larger widest' -%>
+  </div>
+
+  <div class='field'>
+    <%= f.label :venue_calendar_color -%>
+    <%= f.text_field :venue_calendar_color, :class => 'larger widest jscolor {required:false,hash:true}' -%>
+  </div>
+    
+  <%= render :partial => "/shared/admin/form_actions",
+              :locals => {
+                :f => f,
+                :continue_editing => false,
+                :delete_title => t('delete', :scope => 'admin.event_venues.event_venue'),
+                :delete_confirmation => t('message', :scope => 'shared.admin.delete', :title => @event_venue.venue_name)
+              } %>
+<% end -%>
+<% content_for :javascripts do %>
+  <script>
+    $(document).ready(function(){
+      page_options.init(false, '', '');
+    });
+  </script>
+<% end %>

@@ -1,6 +1,7 @@
 module Admin
   class EventsController < Admin::BaseController
     before_filter :find_categories, :except => :index
+    before_filter :find_venues, :except => :index
 
     crudify :event, :xhr_paging => true
 
@@ -20,6 +21,10 @@ module Admin
     
     def find_categories
       @event_categories = EventCategory.all
+    end
+
+    def find_venues
+      @event_venues = EventVenue.all
     end
 
   end

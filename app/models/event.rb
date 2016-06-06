@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   has_many :event_categorizations
   has_many :categories, :through => :event_categorizations, :source => :event_category
+  belongs_to :event_venue
   
   default_scope order('start_at ASC')
     
