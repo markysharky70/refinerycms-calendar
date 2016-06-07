@@ -3,8 +3,9 @@ class EventsController < ApplicationController
   before_filter :find_all_events
   before_filter :find_page
   before_filter :find_categories
+  before_filter :find_venues
   
-  helper [:events, :event_categories]
+  helper [:events, :event_categories, :event_venues]
   
   def index
     # you can use meta fields from your model instead (e.g. browser_title)
@@ -62,4 +63,7 @@ protected
     @event_categories = EventCategory.all
   end
 
+  def find_venues
+    @event_venues = EventVenue.all
+  end
 end
